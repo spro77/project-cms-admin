@@ -1,0 +1,49 @@
+{
+  "name": "project-cms-admin",
+  "version": "0.1.0",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/spro77/project-cms-admin.git"
+  },
+  "author": "spro",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/spro77/project-cms-admin/issues"
+  },
+  "homepage": "https://github.com/spro77/project-cms-admin#readme",
+  "dependencies": {
+    "@types/jest": "24.0.9",
+    "@types/node": "11.9.6",
+    "react": "^16.8.3",
+    "react-dom": "^16.8.3"
+  },
+  "scripts": {
+    "start": "webpack-dev-server --mode development --hot --progress --color --port 3000 --open",
+    "build": "webpack --mode production",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ],
+  "devDependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.3.4",
+    "@types/react": "^16.8.6",
+    "@types/react-dom": "^16.8.2",
+    "awesome-typescript-loader": "^5.2.1",
+    "html-webpack-plugin": "^3.2.0",
+    "source-map-loader": "^0.2.4",
+    "typescript": "^3.3.3333",
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.2.3",
+    "webpack-dev-server": "^3.2.1"
+  }
+}

@@ -1,12 +1,13 @@
+var path = require('path');
 
-const path = require('path');
-
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+// plugins
+var HtmlWebpackPlugin = require('html-webpack-plugin');
+var WebpackCleanupPlugin = require('webpack-cleanup-plugin');
 
 module.exports = {
     entry: './src/index.tsx',
     resolve: {
-        extensions: ['.ts', '.tsx', '.js']
+        extensions: ['.ts', '.tsx', '.js', '.css']
     },
     output: {
         path: path.join(__dirname, '/dist'),
@@ -17,10 +18,16 @@ module.exports = {
             {
                 test: /\.tsx?$/,
                 loader: 'awesome-typescript-loader'
-            }
+            },
+            {
+                test: /\.css$/,
+                use: ['style-loader', 'css-loader'],
+            },
+            { test: /\.(a?png|svg)$/, use: 'url-loader?limit=10000' }
         ]
     },
     plugins: [
+        new WebpackCleanupPlugin(),
         new HtmlWebpackPlugin({
             template: './public/index.html'
         })

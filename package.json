@@ -12,12 +12,6 @@
     "url": "https://github.com/spro77/project-cms-admin/issues"
   },
   "homepage": "https://github.com/spro77/project-cms-admin#readme",
-  "dependencies": {
-    "@types/jest": "24.0.9",
-    "@types/node": "11.9.6",
-    "react": "^16.8.3",
-    "react-dom": "^16.8.3"
-  },
   "scripts": {
     "start": "webpack-dev-server --mode development --hot --progress --color --port 3000 --open",
     "build": "webpack --mode production",
@@ -33,16 +27,30 @@
     "not ie <= 11",
     "not op_mini all"
   ],
+  "dependencies": {
+    "react": "^16.8.3",
+    "react-dom": "^16.8.3",
+    "react-redux": "^6.0.1",
+    "redux": "^4.0.1"
+  },
   "devDependencies": {
     "@babel/cli": "^7.2.3",
     "@babel/core": "^7.3.4",
+    "@types/jest": "24.0.9",
+    "@types/node": "11.9.6",
     "@types/react": "^16.8.6",
     "@types/react-dom": "^16.8.2",
+    "@types/react-redux": "^7.0.3",
+    "antd": "^3.15.0",
     "awesome-typescript-loader": "^5.2.1",
+    "css-loader": "^2.1.1",
     "html-webpack-plugin": "^3.2.0",
     "source-map-loader": "^0.2.4",
+    "style-loader": "^0.23.1",
     "typescript": "^3.3.3333",
+    "url-loader": "^1.1.2",
     "webpack": "^4.29.6",
+    "webpack-cleanup-plugin": "^0.5.1",
     "webpack-cli": "^3.2.3",
     "webpack-dev-server": "^3.2.1"
   }

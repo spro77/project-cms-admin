@@ -1,0 +1,14 @@
+@import '~antd/dist/antd.css';
+
+aside span {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: lighter;
+}
+
+aside svg {
+    width: 1.2em;
+    height: 1.2em;
+}
+  .ant-menu {
+    border-right: 0;
+  }

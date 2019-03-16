@@ -1,30 +1,24 @@
-import * as React from "react";
+import * as React from 'react';
+import { Route, BrowserRouter as Router, Link } from 'react-router-dom';
 import { Layout } from 'antd';
-import SideBar from "../../components/Sidebar/Sidebar"
-import Navbar from "../../components/Navbar/Navbar"
+import SideBar from '../../components/Sidebar/Sidebar';
+import Navbar from '../../components/Navbar/Navbar';
+import Appheader from '../../components/Appheader/Appheader';
+import Viewport from '../Viewport/Viewport';
 import './App.css';
 
-const { Header, Sider, Content, Footer } = Layout;
-
-
-export class App extends React.Component {
-
-    render() {
-        return (
+const App = (): JSX.Element => {
+    return (
+        <Layout>
+            <Appheader />
             <Layout>
-                <Header style={{ background: '#fff', padding: 0 }}>
-                </Header>
+                <SideBar />
                 <Layout>
-                    <SideBar />
-                    <Layout>
-                        <Navbar title="Categories"></Navbar>
-                        <Content style={{ margin: '24px 16px', padding: 24, background: '#fff', minHeight: 1200, }}
-                        >
-                        </Content>
-                    </Layout>
+                    <Navbar title='Categories' />
+                    <Viewport />
                 </Layout>
-                <Footer></Footer>
             </Layout>
-        );
-    }
-}
+        </Layout>
+    );
+};
+export default App;

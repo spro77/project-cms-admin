@@ -7,8 +7,10 @@
 CMS AP is React / TypeScript and Go based eCommerce platform. Allows manage content on static sites.
 
 Built with:
+* TypeScript 3
 * React v16
 * Redux
+* Router
 * Babel
 * WebPack 4
 * MongoDB

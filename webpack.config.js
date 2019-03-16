@@ -21,10 +21,13 @@ module.exports = {
             },
             {
                 test: /\.css$/,
-                use: ['style-loader', 'css-loader'],
+                use: ['style-loader', 'css-loader']
             },
             { test: /\.(a?png|svg)$/, use: 'url-loader?limit=10000' }
         ]
+    },
+    devServer: {
+        historyApiFallback: true
     },
     plugins: [
         new WebpackCleanupPlugin(),
@@ -32,4 +35,4 @@ module.exports = {
             template: './public/index.html'
         })
     ]
-}
+};

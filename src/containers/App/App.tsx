@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Route, BrowserRouter as Router, Switch as RouterSwitch } from 'react-router-dom';
+import { Route, BrowserRouter as Router, Switch as RouterSwitch, Redirect } from 'react-router-dom';
 //import { browserHistory } from 'react-router'
 import { Layout, Switch } from 'antd';
 import SideBar from '../../components/Sidebar/Sidebar';
@@ -14,7 +14,6 @@ import Sales from '../../components/Sales/Sales';
 import Settings from '../../components/Settings/Settings';
 import Notfound from '../../components/Notfound/Notfound';
 import './App.css';
-import { NOTFOUND } from 'dns';
 
 const App = (): JSX.Element => {
     return (
@@ -27,7 +26,8 @@ const App = (): JSX.Element => {
                         <Navbar title='Categories' />
                         <Viewport>
                             <RouterSwitch>
-                                <Route path='/Dashboard' component={Dashboard} />
+                                <Redirect from='/Dashboard' to='/' />
+                                <Route exact path='/' component={Dashboard} />
                                 <Route exact path='/Categories' component={Categories} />
                                 <Route exact path='/Products' component={Products} />
                                 <Route exact path='/Customers' component={Customers} />

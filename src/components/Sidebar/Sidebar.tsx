@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Layout, Menu, Icon } from 'antd';
-import { Link, match } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const { Sider } = Layout;
 
@@ -24,9 +24,8 @@ export default class Sidebar extends React.Component {
                 theme='light'
                 trigger={null}
                 collapsible
-                collapsed={this.state.collapsed}
-            >
-                <Menu theme='light' mode='inline' defaultSelectedKeys={['2']}>
+                collapsed={this.state.collapsed}>
+                <Menu theme='light' mode='inline' defaultSelectedKeys={['1']}>
                     <Menu.Item key='1'>
                         <Link to='/Dashboard'>
                             <Icon type='dashboard' />

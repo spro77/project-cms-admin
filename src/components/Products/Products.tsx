@@ -1,6 +1,5 @@
 import * as React from 'react';
 
-function Products(): JSX.Element {
-    return <div>Products</div>;
-}
+const Products: React.FC<{}> = () => <div>Products</div>;
+
 export default Products;

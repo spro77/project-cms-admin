@@ -1,6 +1,5 @@
 import * as React from 'react';
 
-function Customers(): JSX.Element {
-    return <div>Customers</div>;
-}
+const Customers: React.FC<{}> = () => <div>Customers</div>;
+
 export default Customers;

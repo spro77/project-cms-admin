@@ -16,14 +16,18 @@ import Notfound from '../../components/Notfound/Notfound';
 import './App.css';
 
 const App = (): JSX.Element => {
+    const headerTitle = {
+        title: 'Categories',
+        subTitle: '| Manage your product categories here'
+    };
     return (
         <Router>
             <div>
                 <Appheader />
                 <Layout>
-                    <SideBar />
+                    <SideBar clickHandle={(key: number) => console.log(key)} />
                     <Layout>
-                        <Navbar title='Categories' />
+                        <Navbar {...headerTitle} />
                         <Viewport>
                             <RouterSwitch>
                                 <Redirect from='/Dashboard' to='/' />

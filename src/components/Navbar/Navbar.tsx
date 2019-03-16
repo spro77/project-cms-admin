@@ -5,15 +5,17 @@ const Search = Input.Search;
 
 export interface HeaderProps {
     title: string;
+    subTitle: string;
 }
 
-export default class Navbar extends React.Component<HeaderProps, {}> {
+export default class Navbar extends React.Component<HeaderProps> {
     render() {
+        const { title, subTitle } = this.props;
         return (
             <PageHeader
-                //onBack={() => window.history.back()}
-                title={this.props.title}
-                subTitle='| Manage your product categories here'
+                onBack={() => window.history.back()}
+                title={title}
+                subTitle={subTitle}
                 extra={[
                     <Search
                         key='2'

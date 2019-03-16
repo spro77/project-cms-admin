@@ -1,7 +1,6 @@
 import * as React from 'react';
 
-export default class Settings extends React.Component {
-    render() {
-        return <div>Settings</div>;
-    }
+function Settings(): JSX.Element {
+    return <div>Settings</div>;
 }
+export default Settings;

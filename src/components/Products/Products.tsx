@@ -1,7 +1,6 @@
 import * as React from 'react';
 
-export default class Products extends React.Component {
-    render() {
-        return <div>Products</div>;
-    }
+function Products(): JSX.Element {
+    return <div>Products</div>;
 }
+export default Products;

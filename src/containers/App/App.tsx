@@ -13,37 +13,76 @@ import Customers from '../../components/Customers/Customers';
 import Sales from '../../components/Sales/Sales';
 import Settings from '../../components/Settings/Settings';
 import Notfound from '../../components/Notfound/Notfound';
+//import DrawerContainer from '../DrawerContainer/DrawerContainer';
 import './App.css';
 
-const App = (): JSX.Element => {
-    const headerTitle = {
+const sectionMeta = [
+    {
+        title: '',
+        subTitle: ''
+    },
+    {
+        title: 'Dashboard',
+        subTitle: '| Brief information of all you care about'
+    },
+    {
         title: 'Categories',
         subTitle: '| Manage your product categories here'
+    },
+    {
+        title: 'Products',
+        subTitle: '| List of all products'
+    },
+    {
+        title: 'Customers',
+        subTitle: '| Accounts of your registered customers'
+    },
+    {
+        title: 'Sales',
+        subTitle: '| Transactions and its analytics'
+    },
+    {
+        title: 'Settings',
+        subTitle: '| Customize App behavior'
+    }
+];
+
+export default class App extends React.Component {
+    state = {
+        section: sectionMeta[1]
     };
-    return (
-        <Router>
-            <div>
-                <Appheader />
-                <Layout>
-                    <SideBar clickHandle={(key: number) => console.log(key)} />
+
+    sectionKey = (key: number): void => {
+        this.setState({ section: sectionMeta[key] });
+        console.log(this.state.section);
+    };
+
+    render() {
+        return (
+            <Router>
+                <div>
+                    <Appheader />
                     <Layout>
-                        <Navbar {...headerTitle} />
-                        <Viewport>
-                            <RouterSwitch>
-                                <Redirect from='/Dashboard' to='/' />
-                                <Route exact path='/' component={Dashboard} />
-                                <Route exact path='/Categories' component={Categories} />
-                                <Route exact path='/Products' component={Products} />
-                                <Route exact path='/Customers' component={Customers} />
-                                <Route exact path='/Sales' component={Sales} />
-                                <Route path='/Settings' component={Settings} />
-                                <Route component={Notfound} />
-                            </RouterSwitch>
-                        </Viewport>
+                        <SideBar clickHandle={(key: number) => this.sectionKey(key)} />
+                        <Layout>
+                            <Navbar {...this.state.section} />
+                            {/* <DrawerContainer /> */}
+                            <Viewport>
+                                <RouterSwitch>
+                                    <Redirect from='/Dashboard' to='/' />
+                                    <Route exact path='/' component={Dashboard} />
+                                    <Route exact path='/Categories' component={Categories} />
+                                    <Route exact path='/Products' component={Products} />
+                                    <Route exact path='/Customers' component={Customers} />
+                                    <Route exact path='/Sales' component={Sales} />
+                                    <Route path='/Settings' component={Settings} />
+                                    <Route component={Notfound} />
+                                </RouterSwitch>
+                            </Viewport>
+                        </Layout>
                     </Layout>
-                </Layout>
-            </div>
-        </Router>
-    );
-};
-export default App;
+                </div>
+            </Router>
+        );
+    }
+}

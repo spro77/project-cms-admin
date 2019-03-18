@@ -4,9 +4,6 @@ import { Link } from 'react-router-dom';
 
 const { Sider } = Layout;
 
-interface ClickParam {
-    key: string;
-}
 interface sidebarProps {
     clickHandle: (key: number) => void;
 }
@@ -24,11 +21,7 @@ export default class Sidebar extends React.Component<sidebarProps> {
 
     render() {
         const { clickHandle } = this.props;
-        /* clickHandle = (e: ClickParam) => {
-            this.setState({
-                selected: [`${e.key}`]
-            });
-        }; */
+
         return (
             <Sider
                 style={{ height: document.documentElement.clientHeight }}

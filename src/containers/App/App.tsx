@@ -13,7 +13,7 @@ import Customers from '../../components/Customers/Customers';
 import Sales from '../../components/Sales/Sales';
 import Settings from '../../components/Settings/Settings';
 import Notfound from '../../components/Notfound/Notfound';
-//import DrawerContainer from '../DrawerContainer/DrawerContainer';
+import DrawerContainer from '../DrawerContainer/DrawerContainer';
 import './App.css';
 
 const sectionMeta = [
@@ -47,17 +47,32 @@ const sectionMeta = [
     }
 ];
 
-export default class App extends React.Component {
+export interface AppState {
+    currentSection: { title: string; subTitle: string };
+    toggleDrawer: boolean;
+}
+
+export default class App extends React.Component<{}, AppState> {
     state = {
-        section: sectionMeta[1]
+        currentSection: sectionMeta[1],
+        toggleDrawer: false
     };
 
     sectionKey = (key: number): void => {
-        this.setState({ section: sectionMeta[key] });
-        console.log(this.state.section);
+        this.setState({ currentSection: sectionMeta[key] });
+    };
+
+    showDrawer = () => {
+        this.setState(state => {
+            return {
+                toggleDrawer: !state.toggleDrawer
+            };
+        });
     };
 
     render() {
+        const { currentSection, toggleDrawer } = this.state;
+
         return (
             <Router>
                 <div>
@@ -65,8 +80,8 @@ export default class App extends React.Component {
                     <Layout>
                         <SideBar clickHandle={(key: number) => this.sectionKey(key)} />
                         <Layout>
-                            <Navbar {...this.state.section} />
-                            {/* <DrawerContainer /> */}
+                            <Navbar {...currentSection} showDrawer={this.showDrawer} />
+                            <DrawerContainer toggleDrawer={toggleDrawer} showDrawer={this.showDrawer} />
                             <Viewport>
                                 <RouterSwitch>
                                     <Redirect from='/Dashboard' to='/' />

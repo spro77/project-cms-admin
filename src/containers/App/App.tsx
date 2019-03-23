@@ -48,11 +48,13 @@ const sectionMeta = [
 ];
 
 export interface AppState {
-    currentSection: { title: string; subTitle: string };
-    toggleDrawer: boolean;
+    currentSection: { title: string; subTitle: string },
+    toggleDrawer: boolean,
+    sectionsData?: Array<{ name:string }>
 }
 
 export default class App extends React.Component<{}, AppState> {
+    
     state = {
         currentSection: sectionMeta[1],
         toggleDrawer: false

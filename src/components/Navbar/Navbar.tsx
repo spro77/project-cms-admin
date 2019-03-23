@@ -19,7 +19,7 @@ export default class Navbar extends React.Component<HeaderProps> {
                 subTitle={this.props.subTitle}
                 extra={[
                     <Search
-                        //key='2'
+                        key='2'
                         placeholder='input search text'
                         onSearch={(value: string) => console.log(value)}
                         style={{ width: 200, marginRight: 32 }}

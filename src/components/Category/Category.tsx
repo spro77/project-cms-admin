@@ -1,71 +1,31 @@
 import * as React from 'react';
-import { Collapse, Icon } from 'antd';
-const Panel = Collapse.Panel;
+import { Card, Icon } from 'antd';
 
 interface CatProps {
-    header: string;
-    handlerDelete?: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void;
-    handlerAdd?: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void;
-    handlerEdit?: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void;
+    title: string;
+    id: string;
+    handlerDelete?: (e: React.MouseEvent<HTMLElement, MouseEvent>, id: string) => void;
+    handlerAdd?: (e: React.MouseEvent<HTMLElement, MouseEvent>, id: string) => void;
+    handlerEdit?: (e: React.MouseEvent<HTMLElement, MouseEvent>, id: string) => void;
+    children: boolean | JSX.Element[];
 }
 
-interface CatState {
-    key: string;
-    isActive: boolean;
-}
+const Category = (props: CatProps): JSX.Element => {
+    const { title, handlerDelete, handlerAdd, handlerEdit, children, id } = props;
 
-export default class Category extends React.Component<CatProps, CatState> {
-    state = {
-        key: '1',
-        isActive: false
-    };
+    return (
+        <Card
+            title={title}
+            style={children ? { marginTop: 8 } : { marginTop: 16, height: 48 }}
+            type='inner'
+            extra={[
+                <Icon key='11' type='plus' onClick={e => handlerAdd(e, id)} style={{ marginRight: 16 }} />,
+                <Icon key='12' type='edit' onClick={e => handlerEdit(e, id)} style={{ marginRight: 16 }} />,
+                <Icon key='13' type='delete' onClick={e => handlerDelete(e, id)} />
+            ]}>
+            {children}
+        </Card>
+    );
+};
 
-    /* keyIncrement = () => {
-        this.setState(state => {
-            const newKey = this.state.key + 1;
-            return {
-                key: newKey
-            };
-        });
-    };
-
-    isActiveToggler = () => {
-        this.setState(state => {
-            return {
-                isActive: !state.isActive
-            };
-        });
-    }; */
-
-    render() {
-        const customPanelStyle = {
-            background: '#f7f7f7',
-            borderRadius: 4,
-            marginBottom: 24,
-            border: 0,
-            overflow: 'hidden'
-        };
-        const style = {
-            marginRight: 16
-        };
-        const { header, handlerDelete, handlerAdd, handlerEdit } = this.props;
-
-        return (
-            <Collapse
-                bordered={false}
-                expandIcon={({ isActive }) => <Icon type='caret-right' rotate={isActive ? 90 : 0} />}>
-                <Panel
-                    header={header}
-                    key={this.state.key}
-                    style={customPanelStyle}
-                    extra={[
-                        <Icon key='11' type='plus' onClick={e => handlerAdd(e)} style={style} />,
-                        <Icon key='12' type='edit' onClick={e => handlerEdit(e)} style={style} />,
-                        <Icon key='13' type='delete' onClick={e => handlerDelete(e)} style={style} />
-                    ]}>
-                    {this.props.children}
-                </Panel>
-            </Collapse>
-        );
-    }
-}
+export default Category;

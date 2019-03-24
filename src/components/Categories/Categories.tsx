@@ -1,51 +1,122 @@
 import * as React from 'react';
-import Category from '../Category/Category';
+import { cloneDeep } from 'lodash';
 
-type catInit = {
-    header: string;
-    descendants: catInit[];
+import Category from '../Category/Category';
+import Guide from '../../util/CreateGuid';
+
+export type CatInit = {
+    title: string;
+    id: string;
+    descendants: CatInit[];
 };
 
-export default class Categories extends React.Component {
+interface CatState {
+    categoriesData: CatInit[];
+}
+
+export default class Categories extends React.Component<{}, CatState> {
     state = {
         categoriesData: [
             {
-                header: 'My First Header',
+                title: 'My First title',
+                id: Guide.newGuid(),
                 descendants: [
                     {
-                        header: 'Subcomponent 1',
-                        descendants: []
-                    },
-                    {
-                        header: 'Subcomponent 2',
-                        descendants: []
+                        title: 'Subcomponent 1',
+                        id: Guide.newGuid(),
+                        descendants: [
+                            {
+                                title: 'Sub-subcomponent',
+                                id: Guide.newGuid(),
+                                descendants: [] as CatInit[]
+                            }
+                        ]
                     }
                 ]
             },
             {
-                header: 'My Seconf Header',
-                descendants: []
+                title: 'My Seconf title',
+                id: Guide.newGuid(),
+                descendants: [] as CatInit[]
             }
-        ] as catInit[]
+        ] as CatInit[]
     };
 
-    handlerDelete = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
-        console.log('deleted');
-        e.stopPropagation();
-    };
-    handlerEdit = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
-        console.log('edited');
-        e.stopPropagation();
-    };
-    handlerAdd = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
-        console.log('added');
+    handlerAdd = (e: React.MouseEvent<HTMLElement, MouseEvent>, id: string) => {
+        const newItem = {
+            title: 'New Category',
+            id: Guide.newGuid(),
+            descendants: [] as CatInit[]
+        };
+
+        //Function to add a obj in a tree
+
+        const addToTree = (arr: CatInit[]): void => {
+            arr.forEach(element => {
+                if (element.id == id) {
+                    element.descendants.unshift(newItem);
+                } else if (element.descendants.length > 0) {
+                    addToTree(element.descendants);
+                }
+            });
+        };
+
+        this.setState(({ categoriesData }) => {
+            const deepCopy: CatInit[] = cloneDeep(this.state.categoriesData);
+            addToTree(deepCopy);
+            return {
+                categoriesData: [...deepCopy]
+            };
+        });
         e.stopPropagation();
     };
 
-    elementParsing = (elem: catInit): JSX.Element => {
+    handlerDelete = (e: React.MouseEvent<HTMLElement, MouseEvent>, id: string) => {
+        //Function to del a obj in a tree
+
+        const delFromTree = (arr: CatInit[]): void => {
+            arr.forEach(element => {
+                if (element.id == id) {
+                    arr.splice(arr.indexOf(element), 1);
+                } else if (element.descendants.length > 0) {
+                    delFromTree(element.descendants);
+                }
+            });
+        };
+
+        this.setState(({ categoriesData }) => {
+            const deepCopy: CatInit[] = cloneDeep(this.state.categoriesData);
+            delFromTree(deepCopy);
+            return {
+                categoriesData: [...deepCopy]
+            };
+        });
+        e.stopPropagation();
+    };
+
+    handlerEdit = (e: React.MouseEvent<HTMLElement, MouseEvent>, id: string) => {
+        const newItem = {
+            title: 'New Category',
+            id: Guide.newGuid(),
+            descendants: [] as CatInit[]
+        };
+
+        this.setState(({ categoriesData }) => {
+            const newArr = [...categoriesData, ...[newItem]];
+            return {
+                categoriesData: newArr
+            };
+        });
+
+        e.stopPropagation();
+    };
+
+    elementParsing = (elem: CatInit): JSX.Element => {
         return (
             <Category
-                {...elem}
+                key={elem.id}
+                id={elem.id}
+                title={elem.title}
                 handlerDelete={this.handlerDelete}
                 handlerEdit={this.handlerEdit}
                 handlerAdd={this.handlerAdd}>
@@ -54,14 +125,14 @@ export default class Categories extends React.Component {
         );
     };
 
-    elements = this.state.categoriesData.map(item => {
-        return <li key={this.state.categoriesData.indexOf(item)}>{this.elementParsing(item)}</li>;
-    });
-
     render() {
+        const elements = this.state.categoriesData.map(item => {
+            return this.elementParsing(item);
+        });
+
         if (this.state.categoriesData.length > 0) {
-            return <ul style={{ listStyleType: 'none' }}>{this.elements}</ul>;
+            return <>{elements}</>;
         }
-        return <p>Nothing to show</p>;
+        return <p>Nothing to show. Please create Categories first</p>;
     }
 }
